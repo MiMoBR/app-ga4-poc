@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "445318471933",
+    "project_id": "app-ga4-poc-4f59e",
+    "storage_bucket": "app-ga4-poc-4f59e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445318471933:android:9f92ddcf376547b4e95e94",
+        "android_client_info": {
+          "package_name": "com.pocga4analysis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445318471933-qj2bsi3v3i73ac814tqpole1m5fk5b9r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pocga4analysis",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "445318471933-trlerltt3e1ppch90cij3gl87l4275qf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl5_ikGWoUXH-fN5oldPI6bq2tMYpqIu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445318471933-trlerltt3e1ppch90cij3gl87l4275qf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

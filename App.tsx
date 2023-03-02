@@ -1,18 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {
+  Alert,
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -21,9 +9,17 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
 import type {PropsWithChildren} from 'react';
 import React from 'react';
+import analytics from '@react-native-firebase/analytics';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -55,7 +51,7 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
-function App(): JSX.Element {
+function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -77,8 +73,56 @@ function App(): JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            aquiiiiiiiiiiiiii Edit <Text style={styles.highlight}>App.tsx</Text>{' '}
-            to change this screen and then come back to see your edits.
+            agora vai ----Edit <Text style={styles.highlight}>App.tsx</Text> to
+            change this screen and then come back to see your edits.
+          </Section>
+          <Section title="Cta Test 1">
+            <Button
+              title="Press me"
+              onPress={() => {
+                Alert.alert('Simple Button pressed');
+                console.log('Clicou no CTA Test 1');
+              }}
+            />
+          </Section>
+          <Section title="Cta Test 2">
+            <Button
+              title="Add To Basket"
+              onPress={async () => {
+                await analytics().logEvent('click_CTA_POC_last', {
+                  id: 3745092,
+                  item: 'HERE ITEM INFO',
+                  description: 'HERE THE DESCRIPTION',
+                });
+                console.log('Clicou no CTA Test 2');
+                const appInstanceId = await analytics().getAppInstanceId();
+                console.log(appInstanceId);
+              }}
+            />
+          </Section>
+          <Section title="Cta Test 3">
+            <Button
+              title="Press me 222"
+              onPress={async () => {
+                await analytics().logSelectContent({
+                  content_type: 'TEST CONTENT 1 Last Test',
+                  item_id: 'abcd11111',
+                });
+                console.log('Clicou no CTA Press me1111');
+              }}
+            />
+          </Section>
+          <Section title="Cta Test 3">
+            <Button
+              title="Press me 222"
+              onPress={async () => {
+                await analytics().logSelectContent({
+                  content_type: 'TEST CONTENT 2 Last Test',
+                  item_id: 'abcd22222',
+                });
+                console.log('Clicou no CTA Press me222');
+              }}
+            />
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
