@@ -17,9 +17,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {GASelectContents} from './shared/middleware/gaLogSelectContent';
+import {GaLogEvents} from './shared/middleware/gaLogEvent';
 import type {PropsWithChildren} from 'react';
 import React from 'react';
-import analytics from '@react-native-firebase/analytics';
+import {TestAlert} from './shared/middleware/test';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -51,7 +53,7 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
-function App() {
+function IndexMain() {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -67,73 +69,36 @@ function App() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
+        {/* <Header /> */}
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            agora vai ----Edit <Text style={styles.highlight}>App.tsx</Text> to
-            change this screen and then come back to see your edits.
+            GA4 & Looker to track events on APP.
+            {/* agora vai ----Edit <Text style={styles.highlight}>App.tsx</Text> to
+            change this screen and then come back to see your edits. */}
           </Section>
-          <Section title="Cta Test 1">
-            <Button
-              title="Press me"
-              onPress={() => {
-                Alert.alert('Simple Button pressed');
-                console.log('Clicou no CTA Test 1');
-              }}
-            />
+          <Section title="CTA test Alert">
+            <Button title="Press me" onPress={TestAlert()} />
           </Section>
           <Section title="Cta Test 2">
             <Button
-              title="Add To Basket"
-              onPress={async () => {
-                await analytics().logEvent('click_CTA_POC_last', {
-                  id: 3745092,
-                  item: 'HERE ITEM INFO',
-                  description: 'HERE THE DESCRIPTION',
-                });
-                console.log('Clicou no CTA Test 2');
-                const appInstanceId = await analytics().getAppInstanceId();
-                console.log(appInstanceId);
-              }}
+              title="CTA using logEvent"
+              onPress={GaLogEvents({
+                event_name: 'clicked_cta_test',
+                date_event: new Date(),
+                element_actived: 'app_sc_home_cta_test_2',
+                app_instance_id: '',
+              })}
             />
           </Section>
           <Section title="Cta Test 3">
             <Button
-              title="Press me 222"
-              onPress={async () => {
-                await analytics().logSelectContent({
-                  content_type: 'TEST CONTENT 1 Last Test',
-                  item_id: 'abcd11111',
-                });
-                console.log('Clicou no CTA Press me1111');
-              }}
+              title="CTA using selectContent"
+              onPress={GASelectContents()}
             />
           </Section>
-          <Section title="Cta Test 3">
-            <Button
-              title="Press me 222"
-              onPress={async () => {
-                await analytics().logSelectContent({
-                  content_type: 'TEST CONTENT 2 Last Test',
-                  item_id: 'abcd22222',
-                });
-                console.log('Clicou no CTA Press me222');
-              }}
-            />
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -159,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default IndexMain;
