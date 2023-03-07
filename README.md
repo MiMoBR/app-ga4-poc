@@ -94,3 +94,46 @@ adb shell setprop debug.firebase.analytics.app com.pocga4analysis
 adb shell setprop log.tag.FA VERBOSE
 adb shell setprop log.tag.FA-SVC VERBOSE
 adb logcat -v time -s FA FA-SVC
+
+---
+
+APK Test
+
+1 - acessa pasta com cmd e run
+keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+2 - definir uma senha - rnco15121981
+CN=Reinaldo Nani, OU=MiMoBR, O=MiMoBR, L=SÆo Paulo, ST=SÆo Paulo, C=BR Está correto?
+
+3- colocar o file em android\app
+
+4 - android\gradle.properties - no **_ colocar senha
+"YAPP_UPLOAD_STORE_FILE=my-upload-key.keystore
+MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+MYAPP_UPLOAD_STORE_PASSWORD=_**
+MYAPP_UPLOAD_KEY_PASSWORD=\*\*\*"
+
+5 - android\app\build.gradle
+"release {
+if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+storeFile file(MYAPP_UPLOAD_STORE_FILE)
+storePassword MYAPP_UPLOAD_STORE_PASSWORD
+keyAlias MYAPP_UPLOAD_KEY_ALIAS
+keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+}
+}"
+
+"buildTypes"
+"
+signingConfig signingConfigs.release
+// signingConfig signingConfigs.debug
+"
+
+6 - package.json
+"
+"release:apk": "cd android && ./gradlew assembleRelease",
+"
+
+7 - yarn release:apk
+
+8 - acessar e enviar para test o - android\app\build\outputs\apk\release\app-release.apk
